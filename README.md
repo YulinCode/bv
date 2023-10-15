@@ -1,24 +1,12 @@
-# Leaf弹幕视频网站
+# 中二病研究所·弹幕视频网站
 
 ## 项目介绍
-Leaf弹幕视频网站是一个基于Go+Vue的前后端分离项目。Web 端使用 Vue + NaiveUI , 后端使用 Golang + Gin + Gorm进行开发。
+中二病研究所·弹幕视频网站是一个基于Go+Vue的前后端分离项目。Web 端使用 Vue + NaiveUI , 后端使用 Golang + Gin + Gorm进行开发。
+为中二病研究所（雨霖）原创
 
 ### 特点
 - 实现了文件存储在服务器本地或阿里云、腾讯云、七牛云对象存储功能
 - 实现了视频自动处理分辨率并将视频切片(MPEG-DASH)功能
-
-
-## 项目文档
-
-`开发交流群: 909847398`
-
-`文档：` https://leaf.interastral-peace.com/
-
-## 相关项目
-
-- Vue-WPlayer弹幕播放器(https://github.com/wangzmgit/vue-wplayer)
-- GO滑块拼图生成(https://github.com/wangzmgit/jigsaw)
-- GO对象存储(https://github.com/wangzmgit/unioss)
 
 ## 项目结构
 ```
