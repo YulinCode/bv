@@ -1,0 +1,88 @@
+p, user, /api/v1/user/info/get, GET
+p, user, /api/v1/user/info/modify, POST
+p, user, /api/v1/user/cover/modify, POST
+p, admin, /api/v1/user/manage/list, GET
+p, admin, /api/v1/user/manage/search, GET
+p, admin, /api/v1/user/manage/modify, POST
+p, admin, /api/v1/user/manage/delete, POST
+p, root, /api/v1/user/manage/role/modify, POST
+
+p, user, /api/v1/upload/image, POST
+p, user, /api/v1/upload/video/:vid, POST
+
+p, user, /api/v1/resource/title/modify, POST
+p, user, /api/v1/resource/delete, POST
+
+p, user, /api/v1/video/status, GET
+p, user, /api/v1/video/info/upload, POST
+p, user, /api/v1/video/info/modify, POST
+p, user, /api/v1/video/review/submit, POST
+p, user, /api/v1/video/collect, GET
+p, user, /api/v1/video/upload/get, GET
+p, user, /api/v1/video/delete, POST
+p, auditor, /api/v1/video/manage/list, GET
+p, auditor, /api/v1/video/manage/search, GET
+p, auditor, /api/v1/video/manage/delete, POST
+p, auditor, /api/v1/video/manage/review/list, GET
+p, auditor, /api/v1/video/manage/review/resource/list, GET
+p, auditor, /api/v1/video/manage/review/video, POST
+p, auditor, /api/v1/video/manage/review/resource, POST
+
+p, user, /api/v1/archive/has/like, GET
+p, user, /api/v1/archive/like, POST
+p, user, /api/v1/archive/cancel/like, POST
+p, user, /api/v1/archive/has/collect, GET
+p, user, /api/v1/archive/collect/collected, GET
+p, user, /api/v1/archive/collect, POST
+
+p, user, /api/v1/collection/list, GET
+p, user, /api/v1/collection/info, GET
+p, user, /api/v1/collection/add, POST
+p, user, /api/v1/collection/modify, POST
+p, user, /api/v1/collection/delete, POST
+
+p, user, /api/v1/comment/add, POST
+p, user, /api/v1/comment/reply/add, POST
+p, user, /api/v1/comment/delete, POST
+p, user, /api/v1/comment/reply/delete, POST
+
+p, user, /api/v1/follow/status, GET
+p, user, /api/v1/follow/add, POST
+p, user, /api/v1/follow/cancel, POST
+
+p, user, /api/v1/message/like/get, GET
+p, user, /api/v1/message/at/get, GET
+p, user, /api/v1/message/reply/get, GET
+p, user, /api/v1/message/whisper/list, GET
+p, user, /api/v1/message/whisper/details, GET
+p, user, /api/v1/message/whisper/send, POST
+p, user, /api/v1/message/whisper/read, POST
+p, admin, /api/v1/message/announce/add, POST
+p, admin, /api/v1/message/announce/delete, POST
+
+p, user, /api/v1/history/add, POST
+p, user, /api/v1/history/video/get, GET
+p, user, /api/v1/history/progress/get, GET
+
+p, user, /api/v1/danmaku/send, POST
+
+p, admin, /api/v1/carousel/add, POST
+p, admin, /api/v1/carousel/delete, POST
+
+p, auditor, /api/v1/dashboard/card/data, GET
+p, auditor, /api/v1/dashboard/trend, GET
+p, auditor, /api/v1/dashboard/partition, GET
+
+p, root, /api/v1/partition/add, POST
+p, root, /api/v1/partition/delete, POST
+
+p, root, /api/v1/config/email/get, GET
+p, root, /api/v1/config/email/set, POST
+p, root, /api/v1/config/storage/get, GET
+p, root, /api/v1/config/storage/set, POST
+p, root, /api/v1/config/other/get, GET
+p, root, /api/v1/config/other/set, POST
+
+g, auditor, user
+g, admin, auditor
+g, root, admin
