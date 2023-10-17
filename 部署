@@ -1,4 +1,4 @@
-请严格按照下面的执行！
+部署文件基于Ubuntu编写，其他系统请自行解决
 
 sudo apt-get update
 
