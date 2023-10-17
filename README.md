@@ -14,18 +14,136 @@
 ### 建议使用Ubuntu 20 Server版部署
 ### 系统要求：
 ```
-├── 最低配置
-│   ├── CPU 2核
-│   ├── 内存 4G
-│   ├── 储存 40G
-│   ├── 带宽 20M/s
-├── 建议配置
-│   ├── CPU 6-10 核
-│   ├── 内存 6-10 G
-│   ├── 储存 200G
-│   ├── 带宽 50M/s
+配置要求
+├──        最低/推荐
+│   ├── CPU 2/6核
+│   ├── 内存 4/10G
+│   ├── 储存 40/200G
+│   ├── 带宽 20/50M
 ```
-请查看文件里的部署文件（记事本打开）
+```
+部署文件基于Ubuntu编写，其他系统请自行解决
+
+sudo apt-get update
+
+安装 git
+sudo apt-get install git -y
+
+克隆项目
+cd /home
+sudo git clone https://github.com/YulinCode/bv
+
+安装docker docker-compose
+sudo apt-get install -y docker
+sudo apt-get install -y docker-compose
+
+安装node
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash  - 
+sudo apt-get install -y nodejs
+
+安装pnpm
+sudo npm install -g pnpm
+
+安装nginx
+sudo apt-get install -y nginx
+
+修改前端配置
+cd /home/leaf/web/utils/src
+sudo vi global-config.ts
+
+打包前端项目
+cd /home/leaf/web
+sudo pnpm i
+
+cd /home/leaf/web/packages/web-client
+sudo pnpm run build
+sudo mv web /usr/share/nginx/html/web
+
+
+cd /home/leaf/web/packages/manage-client
+sudo pnpm run build
+sudo mv manage /usr/share/nginx/html/manage
+
+cd /home/leaf/web/packages/mobile-client
+sudo pnpm run build
+sudo mv mobile /usr/share/nginx/html/mobile
+
+
+构建后端
+cd /home/leaf
+pip install --upgrade requests
+pip show requests
+pip install --upgrade docker
+sudo docker-compose build
+sudo docker-compose up -d
+
+
+编辑后端配置
+cd data/config/
+sudo vi application.yml
+
+打开防火墙9000,8080端口
+
+配置nginx
+cd /etc/nginx/conf.d
+sudo vi danmu.conf
+
+添加以下内容并保存
+server {
+    listen       8080;
+	server_name  localhost; #有域名可以把localhost替换为域名
+	client_max_body_size 1024M;
+
+    location / {
+        root /usr/share/nginx/html/web;
+        index index.html index.htm;
+        try_files $uri $uri/ @web;
+    }
+
+    # 解决history路由问题
+    location @web {
+        rewrite ^.*$ /index.html;
+    }
+
+    #后台管理
+    location /manage/ {
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+        try_files $uri $uri/ @manage;
+    }
+
+    # 解决后台管理history路由问题
+    location @manage {
+        rewrite ^.*$ /manage/index.html;
+    }
+
+    #移动端
+    location /mobile/ {
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+        try_files $uri $uri/ @mobile;
+    }
+
+    # 解决移动端history路由问题
+    location @mobile {
+        rewrite ^.*$ /mobile/index.html;
+    }
+
+    # 转发后端
+    location /api/ {
+		proxy_pass http://127.0.0.1:9000;
+		proxy_set_header   Host             $host;
+     	proxy_set_header   X-Real-IP        $remote_addr;						
+        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+		proxy_http_version 1.1;
+    	proxy_set_header Upgrade $http_upgrade;
+    	proxy_set_header Connection "upgrade";
+	}
+}
+
+重启nginx
+sudo nginx -s reload
+```
 
 ### 特点
 - 实现了文件存储在服务器本地或阿里云、腾讯云、七牛云对象存储功能
