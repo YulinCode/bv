@@ -48,29 +48,29 @@ sudo npm install -g pnpm
 sudo apt-get install -y nginx
 
 修改前端配置
-cd /home/leaf/web/utils/src
+cd /home/bv/web/utils/src
 sudo vi global-config.ts
 
 打包前端项目
-cd /home/leaf/web
+cd /home/bv/web
 sudo pnpm i
 
-cd /home/leaf/web/packages/web-client
+cd /home/bv/web/packages/web-client
 sudo pnpm run build
 sudo mv web /usr/share/nginx/html/web
 
 
-cd /home/leaf/web/packages/manage-client
+cd /home/bv/web/packages/manage-client
 sudo pnpm run build
 sudo mv manage /usr/share/nginx/html/manage
 
-cd /home/leaf/web/packages/mobile-client
+cd /home/bv/web/packages/mobile-client
 sudo pnpm run build
 sudo mv mobile /usr/share/nginx/html/mobile
 
 
 构建后端
-cd /home/leaf
+cd /home/bv
 pip install --upgrade requests
 pip show requests
 pip install --upgrade docker
@@ -82,7 +82,7 @@ sudo docker-compose up -d
 cd data/config/
 sudo vi application.yml
 
-打开防火墙9000,8080端口
+打开防火墙9000,8081端口
 
 配置nginx
 cd /etc/nginx/conf.d
@@ -90,7 +90,7 @@ sudo vi danmu.conf
 
 添加以下内容并保存
 server {
-    listen       8080;
+    listen       8081;
 	server_name  localhost; #有域名可以把localhost替换为域名
 	client_max_body_size 1024M;
 
